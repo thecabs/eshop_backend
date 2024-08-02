@@ -65,4 +65,18 @@ class ClientCarteController extends Controller
     {
         //
     }
+
+    public function getClientByMatrAndMobile($matr, $mobile)
+    {
+        $client = clientCarte::where('matr', $matr)
+                             ->where('mobile', $mobile)
+                             ->first();
+    
+        if ($client) {
+            return response()->json($client);
+        } else {
+            return response()->json(['message' => 'Client not found'], 404);
+        }
+    }
+    
 }

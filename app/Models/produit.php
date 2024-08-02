@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class produit extends Model
+class Produit extends Model
 {
     use HasFactory;
 
@@ -17,7 +17,6 @@ class produit extends Model
     protected $casts = [
         'codePro' => 'int',
     ];
-
 
     protected $with = [
         'photos',
@@ -40,30 +39,36 @@ class produit extends Model
 
     public function categorie(): BelongsTo
     {
-        return $this->belongsTo(categorie::class);
+        return $this->belongsTo(Categorie::class);
     }
-
 
     public function photos(): HasMany
     {
-        return $this->hasMany(photo::class);
+        return $this->hasMany(Photo::class);
     }
+
     public function sizes(): HasMany
     {
-        return $this->hasMany(size::class);
+        return $this->hasMany(Size::class);
     }
+
     public function colors(): HasMany
     {
-        return $this->hasMany(color::class);
+        return $this->hasMany(Color::class);
     }
+
     public function ligneCommandes(): HasMany
     {
-        return $this->hasMany(ligneCommande::class);
+        return $this->hasMany(LigneCommande::class);
     }
+
     public function ligneFactures(): HasMany
     {
-        return $this->hasMany(ligneFacture::class);
+        return $this->hasMany(LigneFacture::class);
     }
 
-
+    public function gestionStocks(): HasMany
+    {
+        return $this->hasMany(GestionStock::class, 'produit_codePro', 'codePro');
+    }
 }

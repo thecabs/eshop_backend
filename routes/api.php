@@ -25,27 +25,41 @@ Route::controller(CommandeController::class)->group(function () {
     Route::post('/createCommande', 'store');
     Route::post('/updateCommande/{commande}', 'update');
     Route::post('/faireAvance/{commande}', 'faireAvance');
-    Route::get('/voirCommande/{commande}', 'show');
+    Route::get('/voirCommande/{commande}', 'show'); 
     Route::get('/listVille', 'listVille');
 });
 
 Route::get('/listCategories', [CategorieController::class, 'index']);
+Route::get('categories/{id}', [CategorieController::class, 'show']);
 
 Route::controller(GestionnaireController::class)->group(function () {
     Route::post('/createGest', 'store');
     Route::post('/loginGest', 'login');
+    Route::get('/user', 'user');
+ });
+
+
+Route::controller(ProduitController::class)->group(function () {
+    Route::post('/updateProduit/{produit}', 'update');
+    Route::post('/createProduit', 'store');
+    Route::get('/getquantity/{codePro}', 'getQuantity');
 });
 
+ 
+Route::get('/client/{matr}/{mobile}', [ClientCarteController::class, 'getClientByMatrAndMobile']);
 
 
 Route::group(["middleware" => ['auth:sanctum']], function () {
     Route::get('/logoutGest', [GestionnaireController::class, 'logout']);
     Route::post('/createFac', [FactureController::class, 'store']);
 
-    Route::controller(ProduitController::class)->group(function () {
-        Route::post('/updateProduit/{produit}', 'update');
-        Route::post('/createProduit', 'store');
-    });
+    
+ 
+    
+
+
+   
+    
 
     Route::controller(ProduitFeaturesController::class)->group(function () {
         Route::get('/dropPhoto/{photo}', 'destroyPhotos');
@@ -69,3 +83,4 @@ Route::group(["middleware" => ['auth:sanctum']], function () {
     Route::post('/createClientCarte', [ClientCarteController::class, 'store']);
     Route::post('/createLigneCarte', [LigneCarteController::class, 'store']);
 });
+

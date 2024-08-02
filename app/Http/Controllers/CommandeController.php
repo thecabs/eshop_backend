@@ -52,7 +52,7 @@ class CommandeController extends Controller
             "addresse" => ["string"],
             "commentaire" => "string",
             "avance" => ["numeric"],
-            "remise" => 'required|numeric',
+            "remise" => 'numeric',
             "ville_id" => 'required|numeric',
             "productList" => 'required|array|min:1'
         ]);

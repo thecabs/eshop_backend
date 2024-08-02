@@ -46,7 +46,13 @@ class CategorieController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $category = Categorie::findOrFail($id);
+
+        return response()->json([
+            'id' => $category->id,
+            'nomCat' => $category->nomCat,
+            'image' => $category->image,
+        ]);
     }
 
     /**
